@@ -1,3 +1,9 @@
+<?php
+require_once('getimages.php');
+$latest_menu = get_images('menus', true);
+$menu_date = date_from_filename($latest_menu);
+$gallery = get_images('gallery');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +28,7 @@
 </head>
 <body>
   <header>
-    <h1><img src="img/logo.png" alt="The Tiffin" /></h1>
+    <h1><img src="img/logo2.png" alt="The Tiffin" /></h1>
   </header>
   <main>
     <section id="intro">
@@ -50,8 +56,8 @@ Gluten-free meals are available - please let us know when ordering.
       </p>
     </section>
     <section id="menu">
-      <img src="img/menus/menu.jpg" />
-      <p><em>Menu last updated: 20th April 2022</em></p>
+      <img src="<?=$latest_menu?>" />
+      <p><em>Menu last updated: <?=$menu_date?></em></p>
     </section>
     <section id="order">
       <h3>Place your order by social media or phone</h3>
@@ -65,18 +71,9 @@ Gluten-free meals are available - please let us know when ordering.
   </main>
   <aside>
     <section id="gallery">
-<img src="img/gallery/balls.jpg" alt="" />
-<img src="img/gallery/beandahl.jpg" alt="" />
-<img src="img/gallery/beans.jpg" alt="" />
-<img src="img/gallery/bhaji.jpg" alt="" />
-<img src="img/gallery/box.jpg" alt="" />
-<img src="img/gallery/curry.jpg" alt="" />
-<img src="img/gallery/food.jpg" alt="" />
-<img src="img/gallery/fried.jpg" alt="" />
-<img src="img/gallery/sagaloo.jpg" alt="" />
-<img src="img/gallery/samosa.jpg" alt="" />
-<img src="img/gallery/tonymarket.jpg" alt="" />
-<img src="img/gallery/tikki.jpg" alt="" />
+      <?foreach($gallery as $image):?>
+<img src="<?=$image?>" alt="Mouthwatering food from The Tiffin" />
+      <?endforeach?>
     </section>
     <section id="about">
       <h3>About us</h3>
