@@ -112,6 +112,9 @@ footer {
 footer a {
   color:  #fff;
 }
+footer a:hover {
+  color:  #FE6E21;
+}
 footer ul {
   padding:  1em;
 }
