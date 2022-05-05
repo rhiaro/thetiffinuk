@@ -4,7 +4,7 @@ function get_images($dir, $one=False){
     $files = glob('img/'.$dir.'/*.{jpg,jpeg,png}', GLOB_BRACE);
     if($files){
         if($one){
-            arsort($files);
+            rsort($files, SORT_STRING);
             return $files[0];
         }else{
             shuffle($files);
