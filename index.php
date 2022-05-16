@@ -3,6 +3,7 @@ require_once('getimages.php');
 $latest_menu = get_images('menus', true);
 $menu_date = date_from_filename($latest_menu);
 $gallery = get_images('gallery');
+$delivery = get_delivery_string();
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,7 +50,11 @@ All you need to do is set the table.
 </span>
       </p>
       <p>
-We deliver on <strong>Fridays and Saturdays</strong>, from <strong>5:30pm to 9:30pm</strong>.
+<?if($delivery):?>
+  <?=$delivery?>
+<?else:?>
+  We deliver on <strong>Fridays and Saturdays</strong>, from <strong>5:30pm to 9:30pm</strong>.
+<?endif?>
       </p>
       <p>
 Gluten-free meals are available - please let us know when ordering.
