@@ -28,8 +28,8 @@ function date_from_filename($filename, $format=null){
     return $date->format($format);
 }
 
-function get_days(){
-    $handle = fopen("days.csv", "r");
+function get_days($file="days.csv"){
+    $handle = fopen($file, "r");
     while (($data = fgetcsv($handle)) !== FALSE) {
         return $data;
     }
@@ -52,6 +52,13 @@ function get_delivery_string(){
 
     $msg .= ", from <strong>5:30pm to 9:30pm</strong>.";
     return $msg;
+}
+
+function write_days($data){
+    $fp = fopen("../days.csv", "w");
+    fputcsv($fp, $data);
+    fclose($fp);
+    return $data;
 }
 
 ?>

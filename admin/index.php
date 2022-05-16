@@ -7,18 +7,21 @@ $now = new DateTime();
 $thisweek = $now->format("jS F Y");
 $success = False;
 
+$days = get_days("../days.csv");
+
 if(isset($_POST['update'])){
 
-  $msg = "";
+  $msg = "Menu updated.";
 
   if($_FILES["menu"]["error"] >= 6){
     $msg = "Something went wrong on the server, please try again, and if that doesn't work contact Amy.. (error code ".$_FILES["menu"]["error"].")";
+  }elseif($_FILES["menu"]["error"] == 4){
+    $msg = "Menu not updated.";
   }elseif($_FILES["menu"]["error"] >= 2){
     $msg = "Something went wrong with your file, please try again.";
   }elseif($_FILES["menu"]["error"] > 0){
     $msg = "File too big, please try again with a smaller file.";
-  }
-  if(!stripos($_FILES["menu"]["type"], "jpg") && !stripos($_FILES["menu"]["type"], "jpeg") && !stripos($_FILES["menu"]["type"], "png")){
+  }elseif(isset($_FILES["menu"]) && !stripos($_FILES["menu"]["type"], "jpg") && !stripos($_FILES["menu"]["type"], "jpeg") && !stripos($_FILES["menu"]["type"], "png")){
     $msg = "Please upload a .jpg file";
   }
 
@@ -32,6 +35,14 @@ if(isset($_POST['update'])){
       $msg = "Your file was okay, but something went wrong with saving it. Please try again.";
     }
 
+  }
+
+  if($_POST["days"] != $days){
+    $days = write_days($_POST["days"]);
+    $msg .= " Delivery days updated.";
+    $success = True;
+  }else{
+    $msg .=" Delivery days not updated.";
   }
 
 }
@@ -57,20 +68,24 @@ $menu_date = date_from_filename($latest_menu);
   </header>
   <main>
     <section id="intro">
-      <h2>Update menu</h2>
-      <?if($success):?>
-        <p class="success">Menu updated</p>
-      <?elseif(!empty($msg)):?>
-        <p class="fail"><?=$msg?></p>
+      <h2>Update homepage</h2>
+      <?if(isset($msg)):?>
+        <p class="<?=$success ? "success":"fail"?>"><?=$msg?></p>
       <?endif?>
-      <p><em>Menu last updated: <?=$menu_date?></em></p>
       <form method="post" enctype="multipart/form-data">
-      <p><label for="menu">Upload menu for week of <?=$thisweek?></label></p>
+      <p><label for="menu">Upload menu for week of <?=$thisweek?>:</label></p>
       <p>
         <input type="file" name="menu" id="menu" />
       </p>
+      <p><label for="days">Change delivery days for week of <?=$thisweek?>:</label></p>
+      <p>
+        <input name="days[]" value="Friday" id="fri" type="checkbox"<?=in_array("Friday",$days) ? " checked" : ""?> /><label for="fri">Friday</label>
+        <input name="days[]" value="Saturday" id="sat" type="checkbox"<?=in_array("Saturday",$days) ? " checked" : ""?> /><label for="sat">Saturday</label>
+        <input name="days[]" value="Sunday" id="sun" type="checkbox"<?=in_array("Sunday",$days) ? " checked" : ""?> /><label for="sun">Sunday</label>
+      </p>
       <p><input type="submit" class="btn" name="update" value="Update" /></p>
       </form>
+      <p><em>Menu last updated: <?=$menu_date?></em></p>
     </section>
     <section id="menu">
       <img src="<?=$latest_menu?>" />
