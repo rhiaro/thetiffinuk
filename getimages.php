@@ -37,7 +37,6 @@ function get_days($file="days.csv"){
 
 function get_delivery_string(){
     $days = get_days();
-    var_dump($days);
     if(count($days) == 0){
         return "Unfortunately we are <strong>not delivering</strong> this week.";
     }elseif(count($days) == 1){

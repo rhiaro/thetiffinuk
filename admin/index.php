@@ -11,7 +11,7 @@ $days = get_days("../days.csv");
 
 if(isset($_POST['update'])){
 
-  $msg = "Menu updated.";
+  $msg = "";
 
   if($_FILES["menu"]["error"] >= 6){
     $msg = "Something went wrong on the server, please try again, and if that doesn't work contact Amy.. (error code ".$_FILES["menu"]["error"].")";
@@ -31,6 +31,7 @@ if(isset($_POST['update'])){
 
     if (move_uploaded_file($_FILES['menu']['tmp_name'], $uploadfile)) {
       $success = True;
+      $msg = "Menu updated.";
     }else{
       $msg = "Your file was okay, but something went wrong with saving it. Please try again.";
     }
