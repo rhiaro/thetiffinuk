@@ -1,7 +1,11 @@
 <?php
 
-function get_images($dir, $one=False){
-    $files = glob('img/'.$dir.'/*.{jpg,jpeg,png}', GLOB_BRACE);
+function get_images($dir, $one=False, $admin=False){
+    $imgdir = 'img/'.$dir;
+    if($admin){
+        $imgdir = '../img/'.$dir;
+    }
+    $files = glob($imgdir.'/*.{jpg,jpeg,png}', GLOB_BRACE);
     if($files){
         if($one){
             rsort($files, SORT_STRING);

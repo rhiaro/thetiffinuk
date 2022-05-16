@@ -1,6 +1,43 @@
 <?
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require_once('../getimages.php');
 $now = new DateTime();
-$thisweek = $now->format("d/m/Y");
+$thisweek = $now->format("jS F Y");
+$success = False;
+
+if(isset($_POST['update'])){
+
+  $msg = "";
+
+  if($_FILES["menu"]["error"] >= 6){
+    $msg = "Something went wrong on the server, please try again, and if that doesn't work contact Amy.. (error code ".$_FILES["menu"]["error"].")";
+  }elseif($_FILES["menu"]["error"] >= 2){
+    $msg = "Something went wrong with your file, please try again.";
+  }elseif($_FILES["menu"]["error"] > 0){
+    $msg = "File too big, please try again with a smaller file.";
+  }
+  if(!stripos($_FILES["menu"]["type"], "jpg") && !stripos($_FILES["menu"]["type"], "jpeg") && !stripos($_FILES["menu"]["type"], "png")){
+    $msg = "Please upload a .jpg file";
+  }
+
+  if(empty($msg)){
+    $uploaddir = '../img/menus/';
+    $uploadfile = $uploaddir . basename($now->format("Ymd").".jpg");
+
+    if (move_uploaded_file($_FILES['menu']['tmp_name'], $uploadfile)) {
+      $success = True;
+    }else{
+      $msg = "Your file was okay, but something went wrong with saving it. Please try again.";
+    }
+
+  }
+
+}
+
+$latest_menu = get_images('menus', true, true);
+$menu_date = date_from_filename($latest_menu);
 ?>
 
 <!DOCTYPE html>
@@ -21,17 +58,22 @@ $thisweek = $now->format("d/m/Y");
   <main>
     <section id="intro">
       <h2>Update menu</h2>
-      <form method="post">
+      <?if($success):?>
+        <p class="success">Menu updated</p>
+      <?elseif(!empty($msg)):?>
+        <p class="fail"><?=$msg?></p>
+      <?endif?>
+      <p><em>Menu last updated: <?=$menu_date?></em></p>
+      <form method="post" enctype="multipart/form-data">
       <p><label for="menu">Upload menu for week of <?=$thisweek?></label></p>
       <p>
         <input type="file" name="menu" id="menu" />
       </p>
-      </form>
       <p><input type="submit" class="btn" name="update" value="Update" /></p>
+      </form>
     </section>
     <section id="menu">
-      <img src="../img/menus/menu.jpg" />
-      <p><em>Menu last updated: 20th April 2022</em></p>
+      <img src="<?=$latest_menu?>" />
     </section>
   </main>
   <footer>
