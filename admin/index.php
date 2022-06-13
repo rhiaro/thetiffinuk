@@ -48,6 +48,10 @@ if(isset($_POST['update'])){
 
 }
 
+if(!$days){
+  $days = array();
+}
+
 $latest_menu = get_images('menus', true, true);
 $menu_date = date_from_filename($latest_menu);
 ?>
