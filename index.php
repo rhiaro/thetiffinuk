@@ -24,6 +24,7 @@ $delivery = get_delivery_string();
   <link rel="shortcut icon" href="img/favicon.png">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/tiffin.css">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
   <title>The Tiffin</title>
   <meta name="description" content="Homecooked Punjabi street food, delivered to you, in Kirkcaldy and Fife">
 </head>
@@ -101,13 +102,13 @@ We started the business as a trial upon requests from friends and family who lov
     </section>
   </aside>
   <footer>
-    <section>
+    <section id="contact">
       <h3>Contact</h3>
       <p>
-You can visit us every Friday, and the last Saturday of each month, at the <strong><a href="https://www.facebook.com/ArtisanFridays/" target="_blank">Artisan Market</a> in Kirkcaldy</strong>.
+You can find us at <strong>89 Victoria Road, Kirkcaldy,</strong> Fife, Scotland.</p>
       </p>
       <p>
-And you can contact us by social media, phone or email:
+We love to hear from you by social media, phone or email:
       </p>
       <ul>
         <li><a href="tel:+447480112136"><img src="img/icon_phone.png" alt="Tel:" /> 07480 112 136</a></li>
@@ -117,6 +118,28 @@ And you can contact us by social media, phone or email:
         <li><a href="#"><img src="img/icon_insta.png" alt="Instagram:" /> TheTiffin2020</a></li>
       </ul>
     </section>
+    <section id="map">
+      <div id="themap"></div>
+    </section>
   </footer>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script>
+    var layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+    });
+    var map = new L.Map("themap", {
+        center: new L.LatLng(56.117064, -3.159086),
+        zoom: 14
+    });
+    map.addLayer(layer);
+
+    var marker = new L.Marker([56.117064, -3.159086]).addTo(map);
+    var popup = L.popup();
+    marker.bindPopup("<a href=\"geo:56.117064,-3.159086\">The Tiffin, 89 Victoria Road, Kirkcaldy</a>")
+
+    document.getElementById("themap").style.display = "block";
+    document.getElementById("noscript").style.display = "none";
+
+  </script>
 </body>
 </html>

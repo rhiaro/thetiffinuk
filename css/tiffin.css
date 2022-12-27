@@ -122,6 +122,9 @@ footer {
   font-size:  1.2em;
   padding-bottom:  2em;
 }
+footer section {
+  padding:  0.6em;
+}
 footer a {
   color:  #fff;
 }
@@ -147,6 +150,13 @@ footer ul a {
 footer ul a:hover {
   background-color:  #fe6e21;
   color:  #000;
+}
+
+#themap {
+  width: 100%;
+  height: 100%;
+  min-height: 20vh;
+  mask-image: linear-gradient(rgba(0, 0, 0, 1.0), rgba(0, 0, 0, 1.0) 98%, transparent);
 }
 
 /* Grid */
@@ -214,9 +224,15 @@ aside {
 footer {
   display:  grid;
   grid-area:  footer;
+  grid-template-areas:
+  "contact"
+  "map";
 }
-footer section {
+footer #contact {
   grid-area:  contact;
+}
+footer #map {
+  grid-area:  map;
 }
 
 /* IMAGES */
@@ -302,7 +318,7 @@ aside {
 
 footer {
   grid-template-areas:
-  ". contact contact .";
+  "map map contact contact";
   grid-template-columns: 1fr 48% 48% 1fr;
 }
 
