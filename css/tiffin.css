@@ -117,13 +117,18 @@ section {
 }
 
 footer {
-  background: #000;
+  background-color: #000;
+  background-image: url('/img/gallery/beandahl.jpg');
+  background-position: center center;
+  background-size: cover;
   color:  #fff;
   font-size:  1.2em;
   padding-bottom:  2em;
 }
 footer section {
   padding:  0.6em;
+  background-color: #000;
+  opacity: 0.9;
 }
 footer a {
   color:  #fff;
@@ -318,7 +323,7 @@ aside {
 
 footer {
   grid-template-areas:
-  ". map contact .";
+  "map map contact contact";
   grid-template-columns: 1fr 48% 48% 1fr;
 }
 
