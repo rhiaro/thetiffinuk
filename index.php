@@ -119,9 +119,14 @@ We love to hear from you by social media, phone or email:
       </ul>
     </section>
     <section id="map">
-      <div id="themap"></div>
+      <a href="geo:56.117064,-3.159086" id="noscript"><img src="img/map.png" alt="A map of Kirkcaldy with a marker at The Tiffin's location on Victoria Road" /></a>
+      <div id="themap" style="display:none"></div>
     </section>
   </footer>
+  <script>
+    document.getElementById("themap").style.display = "block";
+    document.getElementById("noscript").style.display = "none";
+  </script>
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
   <script>
     var layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -136,9 +141,6 @@ We love to hear from you by social media, phone or email:
     var marker = new L.Marker([56.117064, -3.159086]).addTo(map);
     var popup = L.popup();
     marker.bindPopup("<a href=\"geo:56.117064,-3.159086\">The Tiffin, 89 Victoria Road, Kirkcaldy</a>")
-
-    document.getElementById("themap").style.display = "block";
-    document.getElementById("noscript").style.display = "none";
 
   </script>
 </body>

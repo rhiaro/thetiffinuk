@@ -318,7 +318,7 @@ aside {
 
 footer {
   grid-template-areas:
-  "map map contact contact";
+  ". map contact .";
   grid-template-columns: 1fr 48% 48% 1fr;
 }
 
