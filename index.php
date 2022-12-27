@@ -88,14 +88,10 @@ All of our dishes are vegetarian and vegan friendly, and can be made gluten-free
 The Tiffin is a small family business, specialising in vegan Punjabi street food.
       </p>
       <p>
-We are based in Kirkcaldy, Fife, and you can often find us at markets around The Kingdom.
+The Tiffin team is Priya and Tony. Priya originally comes from Delhi in India, and has been taught everything from her mother and grandmother, using traditional methods that have been running in the family for many generations. We are helped by our little princess who plays a vital part in our social media, pictures and ideas. We are incredibly grateful to members of our family also help us to run our social media pages and pitch in when we need some extra hands. The Tiffin wouldn't be possible without everyone's help!
       </p>
       <p>
-Priya and Tony run the business, helped by our little princess who plays a vital part in social media pictures and ideas. We also have members of our family who help us to run our social media pages and help us out when we need some extra hands. We would like to thank everyone as The Tiffin wouldn't be possible without everyone's help!
-      </p>
-      <p>
-Priya originally comes from Delhi in India, and has been taught everything from her mother and grandmother, using traditional methods that have been running in the family for many generations.
-We started the business as a trial upon requests from friends and family who loved Priya's cooking and always said we must do this professionally.
+We started our home delivery service after friends and family who loved Priya's cooking said we must do this professionally! We took our food truck to markets around Scotland, and finally in 2022 we opened our dedicated restaurant in Kirkcaldy, Fife. We look forward to welcoming you!
       </p>
     </section>
     <section id="menu">
