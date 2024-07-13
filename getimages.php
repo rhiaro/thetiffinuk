@@ -60,4 +60,12 @@ function write_days($data){
     return $data;
 }
 
+function get_events(){
+    $events = array(
+        ["date" => DateTime::createfromformat("Ymd","20240713"), "events" => ["Solsgirth Home Farm, Dollar"] ],
+        ["date" => DateTime::createfromformat("Ymd","20240714"), "events" => ["Solsgirth Home Farm, Dollar", "Bowhouse Market", "Crail Sea Queen Festival", "Dunfermline City Market"] ],
+    );
+    return $events;
+}
+
 ?>

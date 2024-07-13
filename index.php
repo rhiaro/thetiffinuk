@@ -4,6 +4,7 @@ $latest_menu = get_images('menus', true);
 $menu_date = date_from_filename($latest_menu);
 $gallery = get_images('gallery');
 $delivery = get_delivery_string();
+$events = get_events();
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,6 +73,18 @@ Gluten-free meals are available - please let us know when ordering.
         <a href="#" target="_blank"><img src="img/icon_insta.png" alt="Instagram" title="The Tiffin on Instagram" /></a>
         <a href="tel:+447480112136"><img src="img/icon_phone.png" alt="Telephone" title="Contact The Tiffin by phone" /></a>
       </p>
+    </section>
+    <section id="markets">
+      <h3>Find us</h3>
+      <p>You can find us at local food festivals, artisan markets and other events around Scotland. Here's what we have coming up:</p>
+      <?foreach($events as $date):?>
+        <h4><?=$date["date"]->format("l jS F")?></h4>
+        <ul>
+        <?foreach($date["events"] as $event):?>
+  <li><p><?=$event?></p></li>
+        <?endforeach?>
+        </ul>
+      <?endforeach?>
     </section>
   </main>
   <aside>
