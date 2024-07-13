@@ -117,10 +117,7 @@ We started the business as a trial upon requests from friends and family who lov
     <section>
       <h3>Contact</h3>
       <p>
-You can visit us every Friday, and the last Saturday of each month, at the <strong><a href="https://www.facebook.com/ArtisanFridays/" target="_blank">Artisan Market</a> in Kirkcaldy</strong>.
-      </p>
-      <p>
-And you can contact us by social media, phone or email:
+You can contact us by social media, phone or email:
       </p>
       <ul>
         <li><a href="tel:+447480112136"><img src="img/icon_phone.png" alt="Tel:" /> 07480 112 136</a></li>
