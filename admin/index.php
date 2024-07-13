@@ -1,13 +1,11 @@
 <?
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once('../getimages.php');
 $now = new DateTime();
 $thisweek = $now->format("jS F Y");
 $success = False;
 
 $days = get_days("../days.csv");
+$events = get_events("../events.csv");
 
 if(isset($_POST['update'])){
 
@@ -46,10 +44,29 @@ if(isset($_POST['update'])){
     $msg .=" Delivery days not updated.";
   }
 
+  if(isset($_POST["places"]) && isset($_POST["dates"])){
+    $newevents = array();
+    foreach($_POST["dates"] as $i => $d){
+      if($d != "" && $_POST["places"][$i] != ""){
+        $newevents[] = [$d, $_POST["places"][$i]];
+      }
+    }
+    if($newevents != $events){
+      $events = write_events($newevents);
+      $msg .= " Events updated.";
+      $success = True;
+    }else{
+      $msg .= " Events not updated.";
+    }
+  }
+
 }
 
 if(!$days){
   $days = array();
+}
+if(!$events){
+  $events = array();
 }
 
 $latest_menu = get_images('menus', true, true);
@@ -69,7 +86,7 @@ $menu_date = date_from_filename($latest_menu);
 </head>
 <body class="admin">
   <header>
-    <h1><img src="../img/logo.png" alt="The Tiffin" /></h1>
+    <h1><a href="/"><img src="../img/logo.png" alt="The Tiffin" /></a></h1>
   </header>
   <main>
     <section id="intro">
@@ -78,19 +95,29 @@ $menu_date = date_from_filename($latest_menu);
         <p class="<?=$success ? "success":"fail"?>"><?=$msg?></p>
       <?endif?>
       <form method="post" enctype="multipart/form-data">
+      <h3>Menu</h3>
+      <p><em>Menu last updated: <?=$menu_date?></em></p>
       <p><label for="menu">Upload menu for week of <?=$thisweek?>:</label></p>
       <p>
         <input type="file" name="menu" id="menu" />
       </p>
+      <hr/>
+      <h3>Delivery days</h3>
       <p><label for="days">Change delivery days for week of <?=$thisweek?>:</label></p>
       <p>
         <input name="days[]" value="Friday" id="fri" type="checkbox"<?=in_array("Friday",$days) ? " checked" : ""?> /><label for="fri">Friday</label>
         <input name="days[]" value="Saturday" id="sat" type="checkbox"<?=in_array("Saturday",$days) ? " checked" : ""?> /><label for="sat">Saturday</label>
         <input name="days[]" value="Sunday" id="sun" type="checkbox"<?=in_array("Sunday",$days) ? " checked" : ""?> /><label for="sun">Sunday</label>
       </p>
+      <hr/>
+      <h3>Upcoming markets etc</h3>
+      <?foreach($events as $event):?>
+      <p><input name="dates[]" type="date" value="<?=$event[0]?>" /> - <input name="places[]" type="text" value="<?=$event[1]?>" /></p>
+      <?endforeach?>
+      <p><input name="dates[]" type="date" /> - <input name="places[]" type="text" /></p>
+      <p><input name="dates[]" type="date" /> - <input name="places[]" type="text" /></p>
       <p><input type="submit" class="btn" name="update" value="Update" /></p>
       </form>
-      <p><em>Menu last updated: <?=$menu_date?></em></p>
     </section>
     <section id="menu">
       <img src="<?=$latest_menu?>" />

@@ -61,20 +61,38 @@ function write_days($data){
 }
 
 function get_events($file="events.csv"){
-    $bydate = array();
+    $rows = array();
     $handle = fopen($file, "r");
     while (($data = fgetcsv($handle)) !== FALSE) {
-        if(isset($bydate[$data[0]])){
-            $bydate[$data[0]][] = $data[1];
+        $rows[] = $data;
+    }
+    return $rows;
+}
+
+function parse_events(){
+    $data = get_events();
+    $bydate = array();
+    foreach($data as $row){
+        if(isset($bydate[$row[0]])){
+            $bydate[$row[0]][] = $row[1];
         }else{
-            $bydate[$data[0]] = [$data[1]];
+            $bydate[$row[0]] = [$row[1]];
         }
     }
     $events = array();
     foreach($bydate as $d => $e){
-        $events[] = array("date" => DateTime::createfromformat("Ymd",$d), "events" => $e);
+        $events[] = array("date" => DateTime::createfromformat("Y-m-d",$d), "events" => $e);
     }
     return $events;
+}
+
+function write_events($data){
+    $fp = fopen("../events.csv", "w");
+    foreach($data as $fields){
+        fputcsv($fp, $fields);
+    }
+    fclose($fp);
+    return $data;
 }
 
 ?>

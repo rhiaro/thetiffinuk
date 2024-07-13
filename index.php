@@ -4,7 +4,7 @@ $latest_menu = get_images('menus', true);
 $menu_date = date_from_filename($latest_menu);
 $gallery = get_images('gallery');
 $delivery = get_delivery_string();
-$events = get_events();
+$events = parse_events();
 ?>
 <!DOCTYPE html>
 <html>
