@@ -60,11 +60,20 @@ function write_days($data){
     return $data;
 }
 
-function get_events(){
-    $events = array(
-        ["date" => DateTime::createfromformat("Ymd","20240713"), "events" => ["Solsgirth Home Farm, Dollar"] ],
-        ["date" => DateTime::createfromformat("Ymd","20240714"), "events" => ["Solsgirth Home Farm, Dollar", "Bowhouse Market", "Crail Sea Queen Festival", "Dunfermline City Market"] ],
-    );
+function get_events($file="events.csv"){
+    $bydate = array();
+    $handle = fopen($file, "r");
+    while (($data = fgetcsv($handle)) !== FALSE) {
+        if(isset($bydate[$data[0]])){
+            $bydate[$data[0]][] = $data[1];
+        }else{
+            $bydate[$data[0]] = [$data[1]];
+        }
+    }
+    $events = array();
+    foreach($bydate as $d => $e){
+        $events[] = array("date" => DateTime::createfromformat("Ymd",$d), "events" => $e);
+    }
     return $events;
 }
 

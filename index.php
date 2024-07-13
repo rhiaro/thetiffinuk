@@ -76,7 +76,9 @@ Gluten-free meals are available - please let us know when ordering.
     </section>
     <section id="markets">
       <h3>Find us</h3>
-      <p>You can find us at local food festivals, artisan markets and other events around Scotland. Here's what we have coming up:</p>
+      <p>You can find us at local food festivals, artisan markets and other events around Scotland.
+      <?if(count($events) < 1):?>Check back here for information about where we'll be next.</p><?else:?>
+      Here's what we have coming up:</p>
       <?foreach($events as $date):?>
         <h4><?=$date["date"]->format("l jS F")?></h4>
         <ul>
@@ -85,6 +87,7 @@ Gluten-free meals are available - please let us know when ordering.
         <?endforeach?>
         </ul>
       <?endforeach?>
+    <?endif?>
     </section>
   </main>
   <aside>
